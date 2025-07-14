@@ -1069,8 +1069,10 @@ MI_func <- function(data_selected,
     barplots[[var]] <- p
   }
 
-  final_barplot <- wrap_plots(barplots) + plot_annotation(title = "Categorical Variables: Before vs. After")
-  ggsave(file.path(dir_output, "barplots_cat_before_after.png"), final_barplot, width = 10, height = 8, dpi = 300)
+  if is.na(barplots) {
+    final_barplot <- wrap_plots(barplots) + plot_annotation(title = "Categorical Variables: Before vs. After")
+    ggsave(file.path(dir_output, "barplots_cat_before_after.png"), final_barplot, width = 10, height = 8, dpi = 300)
+  }
 
   cat(sprintf("\nBest model selected: %s", best_model$Method))
   if (best_model$Method == "KNN" && !is.na(best_model$Best_K_Value)) {
